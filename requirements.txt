@@ -1,0 +1,6 @@
+pandas
+numpy
+akshare
+yfinance
+ta
+requests
