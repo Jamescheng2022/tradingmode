@@ -1,0 +1,39 @@
+name: Daily Quant Rotation System
+
+on:
+  schedule:
+    - cron: '30 06 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  run-strategy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Quant Strategy
+        env:
+          DINGTALK_TOKEN: ${{ secrets.DINGTALK_TOKEN }}
+        run: |
+          python main.py
+
+      - name: Upload Logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: execution-logs
+          path: logs/
+          retention-days: 7
