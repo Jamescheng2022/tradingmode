@@ -1,0 +1,65 @@
+# ETF Rotation Trading System Configuration
+
+## Asset Groups
+asset_groups:
+  - name: Equity
+    assets:
+      - SPY
+      - QQQ
+      - IWM
+  - name: Bonds
+    assets:
+      - TLT
+      - BND
+  - name: Commodities
+    assets:
+      - GLD
+      - SLV
+
+## Indicators
+indicators:
+  - name: Moving Average
+    periods:
+      - short: 50
+      - long: 200
+  - name: RSI
+    period: 14
+    overbought: 70
+    oversold: 30
+
+## Regime Filter Settings
+regime_filter:
+  - type: Economic
+    parameters:
+      indicators:
+        - GDP
+        - Unemployment Rate
+  - type: Market
+    parameters:
+      indicators:
+        - SP500 Volatility
+        - Correlation with Bonds
+
+## Entry Signals
+entry_signals:
+  - rule: "Buy when price > short MA and RSI < 30"
+  - rule: "Sell when price < short MA and RSI > 70"
+
+## Exit Rules
+exit_rules:
+  - rule: "Exit if price crosses below long MA"
+  - rule: "Take profit at 20% gain"
+  - rule: "Stop loss at 10% loss"
+
+## Risk Management
+risk_management:
+  max_drawdown: 0.2
+  position_size: "2% of capital"
+
+## Notifications
+notifications:
+  - type: Email
+    recipients:
+      - trader@example.com
+  - type: SMS
+    phone_number: "+1234567890"
