@@ -1,6 +1,7 @@
-pandas
-numpy
-akshare
-yfinance
-ta
-requests
+pandas==2.0.3
+numpy==1.24.3
+pandas_ta==0.3.14b
+akshare==1.14.70
+requests==2.31.0
+pyyaml==6.0
+python-dotenv==1.0.0
